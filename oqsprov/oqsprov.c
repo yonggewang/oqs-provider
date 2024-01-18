@@ -49,7 +49,7 @@ extern OSSL_FUNC_provider_get_capabilities_fn oqs_provider_get_capabilities;
 ///// OQS_TEMPLATE_FRAGMENT_ASSIGN_SIG_OIDS_START
 
 #ifdef OQS_KEM_ENCODERS
-#    define OQS_OID_CNT 130
+#    define OQS_OID_CNT 156
 #else
 #    define OQS_OID_CNT 46
 #endif
@@ -141,6 +141,32 @@ const char *oqs_oid_alg_list[OQS_OID_CNT] = {
     "hqc256",
     "1.3.9999.99.36",
     "p521_hqc256",
+    "1.3.9999.99.38",
+    "rlcel1",
+    "1.3.9999.99.39",
+    "rlcel3",
+    "1.3.9999.99.40",
+    "rlcel5",
+    "1.3.9999.99.41",
+    "classicmceliece348864",
+    "1.3.9999.99.42",
+    "classicmceliece348864f",
+    "1.3.9999.99.43",
+    "classicmceliece460896",
+    "1.3.9999.99.44",
+    "classicmceliece460896f",
+    "1.3.9999.99.45",
+    "classicmceliece6688128",
+    "1.3.9999.99.46",
+    "classicmceliece6688128f",
+    "1.3.9999.99.47",
+    "classicmceliece6960119",
+    "1.3.9999.99.48",
+    "classicmceliece6960119f",
+    "1.3.9999.99.49",
+    "classicmceliece8192128",
+    "1.3.9999.99.50",
+    "classicmceliece8192128f",
 
 #endif /* OQS_KEM_ENCODERS */
 
@@ -299,7 +325,35 @@ int oqs_patch_oids(void)
     if (getenv("OQS_OID_P521_HQC256"))
         oqs_oid_alg_list[82] = getenv("OQS_OID_P521_HQC256");
 
-#    define OQS_KEMOID_CNT 82 + 2
+    if (getenv("OQS_OID_RLCEL1"))
+        oqs_oid_alg_list[84] = getenv("OQS_OID_RLCEL1");
+    if (getenv("OQS_OID_RLCEL3"))
+        oqs_oid_alg_list[86] = getenv("OQS_OID_RLCEL3");
+    if (getenv("OQS_OID_RLCEL5"))
+        oqs_oid_alg_list[88] = getenv("OQS_OID_RLCEL5");
+
+    if (getenv("OQS_OID_CLASSICMCELIECE348864"))
+        oqs_oid_alg_list[90] = getenv("OQS_OID_CLASSICMCELIECE348864");
+    if (getenv("OQS_OID_CLASSICMCELIECE348864F"))
+        oqs_oid_alg_list[92] = getenv("OQS_OID_CLASSICMCELIECE348864F");
+    if (getenv("OQS_OID_CLASSICMCELIECE460896"))
+        oqs_oid_alg_list[94] = getenv("OQS_OID_CLASSICMCELIECE460896");
+    if (getenv("OQS_OID_CLASSICMCELIECE460896F"))
+        oqs_oid_alg_list[96] = getenv("OQS_OID_CLASSICMCELIECE460896F");
+    if (getenv("OQS_OID_CLASSICMCELIECE6688128"))
+        oqs_oid_alg_list[98] = getenv("OQS_OID_CLASSICMCELIECE6688128");
+    if (getenv("OQS_OID_CLASSICMCELIECE6688128F"))
+        oqs_oid_alg_list[100] = getenv("OQS_OID_CLASSICMCELIECE6688128F");
+    if (getenv("OQS_OID_CLASSICMCELIECE6960119"))
+        oqs_oid_alg_list[102] = getenv("OQS_OID_CLASSICMCELIECE6960119");
+    if (getenv("OQS_OID_CLASSICMCELIECE6960119F"))
+        oqs_oid_alg_list[104] = getenv("OQS_OID_CLASSICMCELIECE6960119F");
+    if (getenv("OQS_OID_CLASSICMCELIECE8192128"))
+        oqs_oid_alg_list[106] = getenv("OQS_OID_CLASSICMCELIECE8192128");
+    if (getenv("OQS_OID_CLASSICMCELIECE8192128F"))
+        oqs_oid_alg_list[108] = getenv("OQS_OID_CLASSICMCELIECE8192128F");
+
+#    define OQS_KEMOID_CNT 108 + 2
 #else
 #    define OQS_KEMOID_CNT 0
 #endif /* OQS_KEM_ENCODERS */
@@ -622,6 +676,45 @@ static const OSSL_ALGORITHM oqsprovider_asym_kems[] = {
     KEMHYBALG(p256_kyber512, 128)
     KEMHYBALG(x25519_kyber512, 128)
 #endif
+#ifdef OQS_ENABLE_KEM_rlce_l1
+    KEMBASEALG(rlcel1, 128)
+#endif
+#ifdef OQS_ENABLE_KEM_rlce_l3
+    KEMBASEALG(rlcel3, 192)
+#endif
+#ifdef OQS_ENABLE_KEM_rlce_l5
+    KEMBASEALG(rlcel5, 256)
+#endif
+#ifdef OQS_ENABLE_KEM_classic_mceliece_348864
+    KEMBASEALG(classicmceliece348864, 128)
+#endif
+#ifdef OQS_ENABLE_KEM_classic_mceliece_348864f
+    KEMBASEALG(classicmceliece348864f, 128)
+#endif
+#ifdef OQS_ENABLE_KEM_classic_mceliece_460896
+    KEMBASEALG(classicmceliece460896, 192)
+#endif
+#ifdef OQS_ENABLE_KEM_classic_mceliece_460896f
+    KEMBASEALG(classicmceliece460896f, 192)
+#endif
+#ifdef OQS_ENABLE_KEM_classic_mceliece_6688128
+    KEMBASEALG(classicmceliece6688128, 256)
+#endif
+#ifdef OQS_ENABLE_KEM_classic_mceliece_6688128f
+    KEMBASEALG(classicmceliece6688128f, 256)
+#endif
+#ifdef OQS_ENABLE_KEM_classic_mceliece_6960119
+    KEMBASEALG(classicmceliece6960119, 256)
+#endif
+#ifdef OQS_ENABLE_KEM_classic_mceliece_6960119f
+    KEMBASEALG(classicmceliece6960119f, 256)
+#endif
+#ifdef OQS_ENABLE_KEM_classic_mceliece_8192128
+    KEMBASEALG(classicmceliece8192128, 256)
+#endif
+#ifdef OQS_ENABLE_KEM_classic_mceliece_8192128f
+    KEMBASEALG(classicmceliece8192128f, 256)
+#endif
 #ifdef OQS_ENABLE_KEM_kyber_768
     KEMBASEALG(kyber768, 192)
     KEMHYBALG(p384_kyber768, 192)
@@ -750,6 +843,45 @@ static const OSSL_ALGORITHM oqsprovider_keymgmt[] = {
 
     KEMKMHYBALG(p256_kyber512, 128, ecp)
     KEMKMHYBALG(x25519_kyber512, 128, ecx)
+#endif
+#ifdef OQS_ENABLE_KEM_rlce_l1
+    KEMKMALG(rlcel1, 128)
+#endif
+#ifdef OQS_ENABLE_KEM_rlce_l3
+    KEMKMALG(rlcel3, 192)
+#endif
+#ifdef OQS_ENABLE_KEM_rlce_l5
+    KEMKMALG(rlcel5, 256)
+#endif
+#ifdef OQS_ENABLE_KEM_classic_mceliece_348864
+    KEMKMALG(classicmceliece348864, 128)
+#endif
+#ifdef OQS_ENABLE_KEM_classic_mceliece_348864f
+    KEMKMALG(classicmceliece348864f, 128)
+#endif
+#ifdef OQS_ENABLE_KEM_classic_mceliece_460896
+    KEMKMALG(classicmceliece460896, 192)
+#endif
+#ifdef OQS_ENABLE_KEM_classic_mceliece_460896f
+    KEMKMALG(classicmceliece460896f, 192)
+#endif
+#ifdef OQS_ENABLE_KEM_classic_mceliece_6688128
+    KEMKMALG(classicmceliece6688128, 256)
+#endif
+#ifdef OQS_ENABLE_KEM_classic_mceliece_6688128f
+    KEMKMALG(classicmceliece6688128f, 256)
+#endif
+#ifdef OQS_ENABLE_KEM_classic_mceliece_6960119
+    KEMKMALG(classicmceliece6960119, 256)
+#endif
+#ifdef OQS_ENABLE_KEM_classic_mceliece_6960119f
+    KEMKMALG(classicmceliece6960119f, 256)
+#endif
+#ifdef OQS_ENABLE_KEM_classic_mceliece_8192128
+    KEMKMALG(classicmceliece8192128, 256)
+#endif
+#ifdef OQS_ENABLE_KEM_classic_mceliece_8192128f
+    KEMKMALG(classicmceliece8192128f, 256)
 #endif
 #ifdef OQS_ENABLE_KEM_kyber_768
     KEMKMALG(kyber768, 192)
